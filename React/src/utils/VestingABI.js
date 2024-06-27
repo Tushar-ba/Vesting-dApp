@@ -202,8 +202,18 @@ const VestingABI =[
 				"type": "address"
 			}
 		],
-		"name": "getRole",
+		"name": "getBeneficiaryDetails",
 		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
 			{
 				"internalType": "enum Vesting.Role",
 				"name": "",
@@ -266,5 +276,4 @@ const VestingABI =[
 		"type": "function"
 	}
 ]
-
 export default VestingABI;
