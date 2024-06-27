@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
-import VestingABI from './utils/VestingABI'; // Update path accordingly
+import VestingABI from './utils/VestingABI'; 
 
 const YourComponent = () => {
     const [signer, setSigner] = useState(null);
     const [beneficiaryAddress, setBeneficiaryAddress] = useState('');
     const [allocationAmount, setAllocationAmount] = useState('');
-    const [roleType, setRoleType] = useState(0); // Default to Role.User, adjust as needed
+    const [roleType, setRoleType] = useState(0); 
     const [beneficiaryDetails, setBeneficiaryDetails] = useState(null);
     const [provider,setProvider]=useState(null);
     const [address,setAddress]=useState("Connect to MetaMask")
@@ -32,26 +32,26 @@ const YourComponent = () => {
             console.error('Failed to connect to MetaMask:', error);
         }
     };
-
+// adding benfi
     const handleAddBeneficiary = async () => {
       try {
           const vestingContract = new ethers.Contract(contractAddress, VestingABI, signer);
 
-          // Convert allocation amount to BigNumber if needed
-          const allocation = ethers.parseUnits(allocationAmount, 18); // Assuming 18 decimal places
+          
+          const allocation = ethers.parseUnits(allocationAmount, 18); 
 
-          // Convert roleType to uint8 if necessary
-          const roleTypeUint8 = parseInt(roleType); // Assuming roleType is already an integer
+          
+          const roleTypeUint8 = parseInt(roleType); 
 
           const tx = await vestingContract.addBeneficiary(beneficiaryAddress, roleTypeUint8, allocation);
           await tx.wait();
           console.log('Beneficiary added successfully');
-          // Optionally update UI or state upon success
+         
       } catch (error) {
           console.error('Failed to add beneficiary:', error);
       }
   };
-
+// claim tokens
     const handleClaimTokens = async () => {
         try {
             const vestingContract = new ethers.Contract(contractAddress, VestingABI, signer);
@@ -59,12 +59,12 @@ const YourComponent = () => {
             const tx = await vestingContract.claimTokens();
             await tx.wait();
             console.log('Tokens claimed successfully');
-            // Optionally update UI or state upon success
+           
         } catch (error) {
             console.error('Failed to claim tokens:', error);
         }
     };
-
+// starting vesting
     const handleStartVesting = async () => {
         try {
             const vestingContract = new ethers.Contract(contractAddress, VestingABI, signer);
@@ -73,20 +73,20 @@ const YourComponent = () => {
             await tx.wait();
 
             console.log('Vesting started successfully');
-            // Optionally update UI or state upon success
+            
         } catch (error) {
             console.error('Failed to start vesting:', error);
         }
     };
-
+// get details
     const handleGetBeneficiaryDetails = async () => {
       try {
           const vestingContract = new ethers.Contract(contractAddress, VestingABI, provider);
 
           const details = await vestingContract.getBeneficiaryDetails(beneficiaryAddress);
           setBeneficiaryDetails({
-              allocation: ethers.formatUnits(details[0], 18), // Convert from BigNumber to string
-              claimed: ethers.formatUnits(details[1], 18), // Convert from BigNumber to string
+              allocation: ethers.formatUnits(details[0], 18),
+              claimed: ethers.formatUnits(details[1], 18), 
               role: details[2]
           });
           console.log('Beneficiary details fetched successfully:', details);
